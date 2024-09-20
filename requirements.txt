@@ -1,3 +1,4 @@
+pip
 streamlit
 tensorflow==2.16.0
 pillow
