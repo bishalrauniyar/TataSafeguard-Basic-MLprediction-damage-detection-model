@@ -3,8 +3,15 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
+from tensorflow.keras.losses import SparseCategoricalCrossentropy
 
-model = load_model('AeroplaneDamageDetection.h5')
+# Load the model without compilation
+model = load_model('AeroplaneDamageDetection.h5', compile=False)
+
+# Compile the model manually to avoid deserialization issues
+model.compile(optimizer='adam', loss=SparseCategoricalCrossentropy(from_logits=False), metrics=['accuracy'])
+
+# model = load_model('AeroplaneDamageDetection.h5')
 
 def predict_image(image):
     image = image.resize((128, 128))
